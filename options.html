@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Threadmate 設定</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <h1>✨ Threadmate 設定</h1>
+      <p class="lede">免費、開源、自帶金鑰的 Threads / X AI 回覆助手。只幫你草擬，送出與否由你決定。</p>
+
+      <div class="privacy">
+        🔒 你的 API 金鑰<strong>只存在這台瀏覽器本機</strong>，呼叫直接送到你選的 AI 供應商，
+        <strong>沒有任何後端、沒有任何追蹤</strong>。
+      </div>
+
+      <section>
+        <h2>1. 選擇 AI 供應商</h2>
+        <label>
+          供應商
+          <select id="provider">
+            <option value="gemini">Google Gemini（有免費額度，推薦新手）</option>
+            <option value="openai">OpenAI</option>
+            <option value="anthropic">Anthropic (Claude)</option>
+          </select>
+        </label>
+      </section>
+
+      <section>
+        <h2>2. 填入你自己的 API 金鑰</h2>
+
+        <div class="provider-block" data-provider="gemini">
+          <label>
+            Gemini API Key
+            <input type="password" id="key-gemini" placeholder="AIza..." autocomplete="off" />
+          </label>
+          <label>
+            模型
+            <input type="text" id="model-gemini" placeholder="gemini-flash-latest" />
+          </label>
+          <p class="hint">不過期：<code>gemini-flash-latest</code>　·　更省更快：<code>gemini-2.5-flash-lite</code></p>
+          <a class="getkey" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">取得 Gemini 金鑰 →</a>
+        </div>
+
+        <div class="provider-block" data-provider="openai">
+          <label>
+            OpenAI API Key
+            <input type="password" id="key-openai" placeholder="sk-..." autocomplete="off" />
+          </label>
+          <label>
+            模型
+            <input type="text" id="model-openai" placeholder="gpt-5.4-mini" />
+          </label>
+          <p class="hint">便宜：<code>gpt-5.4-mini</code>　·　最省：<code>gpt-5.4-nano</code></p>
+          <a class="getkey" href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">取得 OpenAI 金鑰 →</a>
+        </div>
+
+        <div class="provider-block" data-provider="anthropic">
+          <label>
+            Anthropic API Key
+            <input type="password" id="key-anthropic" placeholder="sk-ant-..." autocomplete="off" />
+          </label>
+          <label>
+            模型
+            <input type="text" id="model-anthropic" placeholder="claude-haiku-4-5" />
+          </label>
+          <p class="hint">便宜：<code>claude-haiku-4-5</code>　·　最強：<code>claude-opus-4-8</code>　·　平衡：<code>claude-sonnet-4-6</code></p>
+          <a class="getkey" href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">取得 Anthropic 金鑰 →</a>
+        </div>
+      </section>
+
+      <section>
+        <h2>3. 回覆風格</h2>
+        <label>
+          語氣
+          <select id="tone">
+            <option value="friendly">親切隨和</option>
+            <option value="professional">專業有見地</option>
+            <option value="witty">機智幽默</option>
+            <option value="supportive">鼓勵支持</option>
+            <option value="question">用問題引發討論</option>
+            <option value="contrarian">禮貌提出不同觀點</option>
+            <option value="congrats">真誠祝賀</option>
+          </select>
+        </label>
+        <label>
+          回覆語言
+          <input type="text" id="language" placeholder="auto（跟原文一樣）／繁體中文／English…" />
+        </label>
+        <label>
+          你的領域 / 人設（選填）
+          <input type="text" id="niche" placeholder="例如：獨立開發者、行銷顧問、攝影師…" />
+        </label>
+        <label>
+          推廣內容（選填，AI 會在主題相關時「自然、低調」帶入，不會整段照貼）
+          <textarea id="promo" rows="3" placeholder="例如：康凡運動賽誌APP 的『揪打球』功能 — 快速開團找球友、留言＋回覆主揪、還能當計分板與比賽錄影帶即時比分。"></textarea>
+        </label>
+        <label>
+          額外指示（選填）
+          <textarea id="customInstr" rows="2" placeholder="例如：偏好台灣用語、不要太正式…"></textarea>
+        </label>
+      </section>
+
+      <section>
+        <h2>4. 範本庫 📋</h2>
+        <p class="hint">常用的固定回覆，存在本機。在貼文頁點浮動按鈕旁的「📋」即可一鍵插入，不花 AI 費用。</p>
+        <div id="templateList"></div>
+        <div class="tpl-add">
+          <input type="text" id="tplLabel" placeholder="標籤（例如：感謝、恭喜）" />
+          <textarea id="tplText" rows="2" placeholder="範本內容…"></textarea>
+          <button id="tplAdd">＋ 新增範本</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>5. 其他</h2>
+        <label class="checkbox">
+          <input type="checkbox" id="featureEnabled" />
+          在 Threads / X 頁面顯示「AI 回覆」按鈕
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" id="followingFeed" />
+          打開 Threads 時自動切到「追蹤中」時間軸（實驗性，可能因官方改版失效）
+        </label>
+        <p class="hint">
+          ⌨️ 快捷鍵：<code>Ctrl/⌘ + Shift + Y</code> 直接生成回覆。
+          可在 <code>chrome://extensions/shortcuts</code> 自訂。
+        </p>
+        <p class="hint" id="statsLine">📊 使用統計載入中…</p>
+      </section>
+
+      <section>
+        <h2>6. 匯入 / 匯出設定</h2>
+        <p class="hint">把所有設定打包成一個檔案／一段文字，傳給同事，他匯入就能直接用，不用自己一項項設定。</p>
+        <label class="checkbox"><input type="checkbox" id="expKeys" checked> 匯出時包含 API 金鑰</label>
+        <div class="warn-sm">⚠️ 含金鑰 = 把你的 API 金鑰交出去，同事使用就<b>計你的額度/費用</b>。只傳給信任的人、用私訊傳。取消勾選則同事要自己填金鑰。</div>
+        <div class="exp-row">
+          <button id="expDownload">⬇️ 下載設定檔</button>
+          <button id="expCopy">📋 複製設定文字</button>
+        </div>
+        <p class="hint" style="margin-top:12px">匯入（同事這樣做）：</p>
+        <div class="exp-row">
+          <button id="impFileBtn">📂 從檔案匯入</button>
+          <input type="file" id="impFile" accept="application/json,.json" hidden />
+        </div>
+        <textarea id="impPaste" rows="2" placeholder="或把對方給你的設定文字貼在這裡…"></textarea>
+        <button id="impPasteBtn">匯入貼上的文字</button>
+      </section>
+
+      <div class="actions">
+        <button id="save" class="primary">儲存設定</button>
+        <button id="test">測試生成一則</button>
+        <span id="status" class="status"></span>
+      </div>
+
+      <div id="testOut" class="test-out" hidden></div>
+
+      <footer>
+        Threadmate · MIT 授權 · 開源、免費、零追蹤。回報問題或貢獻：把這個資料夾上傳到你的 GitHub。
+      </footer>
+    </main>
+    <script src="options.js"></script>
+  </body>
+</html>
